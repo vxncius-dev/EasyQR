@@ -25,7 +25,3 @@ Built with a focus on speed and reliability using:
 2. Enter text, paste a URL, or drag a file onto the interface.
 3. The QR code updates automatically.
 4. Scan or share the generated content instantly.
-
----
-
-Developed by [Vinícius](https://github.com/vxncius-dev).
