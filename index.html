@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="src/icon.png" type="image/x-icon">
+    <meta name="description" content="EasyQR is a fast and efficient QR code generator with temporary file hosting. Share links, documents, and text securely and quickly with automatic expiration.">
+    <meta name="keywords" content="QR code, QR code generator, temporary file hosting, file sharing, secure transfer, automatic expiration, share documents">
+    <meta name="author" content="Vinícius">
+    <meta property="og:title" content="EasyQR - Quick and Secure QR Code Generator">
+    <meta property="og:description" content="Create and share QR codes for links, text, and files with temporary hosting. Fast and secure transfers with expiration.">
+    <meta property="og:image" content="src/icon.png">
+    <meta property="og:url" content="https://vxncius-dev.github.io/EasyQR/">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>EasyQR - Fast & Secure QR Generator</title>
+    <link rel="stylesheet" href="src/style.css">
+    <script src="https://unpkg.com/@zxing/library@latest"></script>
+    <script src="src/main.js" defer></script>
+</head>
+
+<body>
+    <section class="container">
+        <header>
+            <h1>EasyQR</h1>
+            <p>Fast, Secure & Temporary.</p>
+            <div class="input-group">
+                <input type="text" id="textInput" placeholder="Write, paste or drag file here..." aria-label="Text input" autofocus>
+                <input type="file" id="fileInput" hidden>
+            </div>
+        </header>
+
+        <main>
+            <div id="app-card">
+                <div id="qr-container">
+                    <div id="qrcode"></div>
+                    <div class="qr-decoration">
+                        <div class="tape"></div>
+                    </div>
+                </div>
+
+                <div id="fileDescription" style="display:none;">
+                    <div class="file-info">
+                        <img src="" alt="Preview" id="filePreview">
+                        <div class="file-details">
+                            <p id="fileName"></p>
+                            <p id="typeSize"></p>
+                        </div>
+                        <button type="button" id="delete" title="Remove file">
+                            <i class="fi fi-rr-cross-small"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <input type="checkbox" name="showcontent" id="showcontent" hidden>
+            <a href="https://github.com/vxncius-dev" target="_blank">
+                <img src="https://github.com/vxncius-dev.png?size=27" alt=""></a>
+            <label for="showcontent"><i class="fa-solid fa-chevron-right"></i></label>
+            <a href="https://davidshimjs.github.io/qrcodejs/" target="_blank">
+                <i class="fa-solid fa-qrcode"></i>
+                QRCode.js</a>
+            <a href="https://tmpfiles.org/" target="_blank">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                Tmpfiles.org</a>
+        </div>
+    </footer>
+</body>
+
+</html>

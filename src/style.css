@@ -1,0 +1,254 @@
+@import url("https://fonts.cdnfonts.com/css/poppins");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;
+    color: #000;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background: #fff;
+    padding: 0 40px;
+    display: grid;
+    place-content: center;
+    min-width: 300px;
+    width: 100vw;
+    min-height: 490px;
+    height: 100vh;
+    position: relative;
+    background-color: #24242e;
+    opacity: 0.8;
+    background-image: radial-gradient(#54555b 0.5px, #d6d6e0 0.5px);
+    background-size: 10px 10px;
+
+    * {
+        transition: 0.4s ease;
+    }
+
+    header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    h1 {
+        font-size: 4.6em;
+        margin-bottom: -15px;
+    }
+
+    .container {
+        display: flex;
+        gap: 10px 40px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .input-group {
+        border: 1px solid #ccc;
+        padding: 10px 15px;
+        width: 280px;
+        border-radius: 12px;
+        background: #060606;
+        display: flex;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+            rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+        ::placeholder {
+            color: #bbb;
+        }
+
+        * {
+            color: #fff;
+        }
+
+        input {
+            flex: 1;
+            font-size: 1em;
+        }
+
+        label {
+            cursor: pointer;
+        }
+    }
+
+    @media (max-width: 330px) {
+        .inputs {
+            right: 10px;
+        }
+    }
+
+    #qrcode {
+        background-image: url("../src/bg.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 250px;
+        height: 450px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotate(3deg);
+        filter: drop-shadow(3px 3px 3px #6b6666);
+    }
+
+    #fileDescription {
+        position: absolute;
+        width: 250px;
+        padding: 10px 15px;
+        display: flex;
+        align-items: start;
+        gap: 10px;
+
+        img {
+            width: 30px;
+            object-fit: cover;
+            border-radius: 7px;
+        }
+
+        p {
+            font-size: 0.9em;
+            width: 115px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        button {
+            font-size: 1.3em;
+            opacity: 0.4;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 1;
+        }
+    }
+
+    ul {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 10px;
+        width: 100vw;
+        transition: none;
+        gap: 15px;
+
+        li {
+            font-size: 0.8em;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+    }
+
+    @media (max-width: 380px) {
+        ul {
+            flex-direction: column;
+            gap: 0;
+            padding: 0 40px;
+        }
+    }
+
+    .footer-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        margin: 10px;
+        display: flex;
+        gap: 15px;
+        border: 1px solid #ccc;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: #060606;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+            rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+        * {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: small;
+        }
+
+        img {
+            border-radius: 6px;
+        }
+
+        input {
+            display: none;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        @media (min-width: 653px) {
+            label {
+                display: none;
+            }
+        }
+
+        @media (max-width: 653px) {
+            a:not(:first-of-type) {
+                display: none;
+            }
+        }
+
+        input:checked~a {
+            display: flex;
+        }
+    }
+}
+
+.drag-active::before {
+    content: "Drag and drop your file here";
+    color: #fff;
+    z-index: 4;
+    font-size: 4em;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 4px dashed #fff;
+    border-radius: 12px;
+    padding: 40px 60px;
+    width: 70%;
+    height: 70%;
+    display: grid;
+    place-content: center;
+    background: #4e4e4e61;
+    backdrop-filter: blur(4px);
+}
+
+.drag-active::after {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1111113f;
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
