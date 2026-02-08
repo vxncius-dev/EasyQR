@@ -43,18 +43,6 @@
                     </div>
                 </div>
 
-                <div id="fileDescription" style="display:none;">
-                    <div class="file-info">
-                        <img src="" alt="Preview" id="filePreview">
-                        <div class="file-details">
-                            <p id="fileName"></p>
-                            <p id="typeSize"></p>
-                        </div>
-                        <button type="button" id="delete" title="Remove file">
-                            <i class="fi fi-rr-cross-small"></i>
-                        </button>
-                    </div>
-                </div>
             </div>
         </main>
     </section>
@@ -65,14 +53,21 @@
             <a href="https://github.com/vxncius-dev" target="_blank">
                 <img src="https://github.com/vxncius-dev.png?size=27" alt=""></a>
             <label for="showcontent"><i class="fa-solid fa-chevron-right"></i></label>
-            <a href="https://davidshimjs.github.io/qrcodejs/" target="_blank">
-                <i class="fa-solid fa-qrcode"></i>
-                QRCode.js</a>
-            <a href="https://tmpfiles.org/" target="_blank">
-                <i class="fa-solid fa-cloud-arrow-up"></i>
-                Tmpfiles.org</a>
+            <a href="https://github.com/zxing/zxing" target="_blank">
+                <img src="src/zxing-icon.webp" alt="zxing-icon" width="25">
+                zxing</a>
         </div>
     </footer>
+
+    <div class="bottom-sheet-backdrop" id="historySheetBackdrop" aria-hidden="true"></div>
+    <div id="history-bottom-sheet" class="bottom-sheet" aria-label="Histórico de itens">
+        <div class="bottom-sheet-handle" id="historySheetHandle" role="button" tabindex="0" aria-expanded="false">
+            <span class="bottom-sheet-drag-bar"></span>
+        </div>
+        <div class="bottom-sheet-content">
+            <ul id="historyList" class="history-list"></ul>
+        </div>
+    </div>
 </body>
 
 </html>
