@@ -5,18 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="src/icon.png" type="image/x-icon">
-    <meta name="description" content="EasyQR is a fast and efficient QR code generator with temporary file hosting. Share links, documents, and text securely and quickly with automatic expiration.">
-    <meta name="keywords" content="QR code, QR code generator, temporary file hosting, file sharing, secure transfer, automatic expiration, share documents">
-    <meta name="author" content="Vinícius">
+    <meta name="description"
+        content="EasyQR is a fast and efficient frontend-only QR code generator for links, text, and temporary file links.">
+    <meta name="keywords"
+        content="QR code, QR code generator, tmpfiles, temporary file hosting, file sharing, local files">
+    <meta name="author" content="Vinicius">
     <meta property="og:title" content="EasyQR - Quick and Secure QR Code Generator">
-    <meta property="og:description" content="Create and share QR codes for links, text, and files with temporary hosting. Fast and secure transfers with expiration.">
+    <meta property="og:description"
+        content="Create and share QR codes for links and temporary file URLs without maintaining a backend.">
     <meta property="og:image" content="src/icon.png">
     <meta property="og:url" content="https://vxncius-dev.github.io/EasyQR/">
     <meta property="og:type" content="website">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>EasyQR - Fast & Secure QR Generator</title>
     <link rel="stylesheet" href="src/style.css">
     <script src="https://unpkg.com/@zxing/library@latest"></script>
@@ -27,11 +32,16 @@
     <section class="container">
         <header>
             <h1>EasyQR</h1>
-            <p>Fast, Secure & Temporary.</p>
+            <p>Fast, Local & Simple.</p>
             <div class="input-group">
-                <input type="text" id="textInput" placeholder="Write, paste or drag file here..." aria-label="Text input" autofocus>
+                <input type="text" id="textInput" placeholder="Write, paste or drag file here"
+                    aria-label="Text input" autofocus>
+                <button type="button" id="uploadTrigger" aria-label="Select file to upload">
+                    <i class="fa-solid fa-upload" aria-hidden="true"></i>
+                </button>
                 <input type="file" id="fileInput" hidden>
             </div>
+            <p id="uploadStatus" class="upload-status" aria-live="polite"></p>
         </header>
 
         <main>
@@ -42,25 +52,171 @@
                         <div class="tape"></div>
                     </div>
                 </div>
-
             </div>
         </main>
+
+        <div class="upload-warning">
+            ⚠ Não faça upload de arquivos sensíveis, confidenciais, pessoais ou privados.
+            O serviço é público e você é totalmente responsável pelo conteúdo enviado.
+        </div>
     </section>
 
     <footer>
         <div class="footer-content">
             <input type="checkbox" name="showcontent" id="showcontent" hidden>
-            <a href="https://github.com/vxncius-dev" target="_blank">
-                <img src="https://github.com/vxncius-dev.png?size=27" alt=""></a>
+            <a href="https://github.com/vxncius-dev" target="_blank" rel="noopener noreferrer">
+                <img src="https://github.com/vxncius-dev.png?size=27" alt="">
+            </a>
             <label for="showcontent"><i class="fa-solid fa-chevron-right"></i></label>
-            <a href="https://github.com/zxing/zxing" target="_blank">
-                <img src="src/zxing-icon.webp" alt="zxing-icon" width="25">
-                zxing</a>
+            <a class="close-footer" href="https://github.com/zxing/zxing" target="_blank" rel="noopener noreferrer">
+                <img src="src/zxing-icon.webp" alt="zxing icon" width="25">
+                zxing
+            </a>
+            <a class="close-footer" href="https://tmpfiles.org" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true" style="color: #0081ff;"></i>
+                tmpfiles
+            </a>
+            <button class="close-footer" id="openTermsBtn">Termos de Uso</button>
+            <button class="close-footer" id="openPrivacyBtn">Política de Privacidade</button>
         </div>
     </footer>
 
+    <div id="modalBackdrop" class="modal-backdrop"></div>
+
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <button data-modal-close><i class="fa-solid fa-x"></i></button>
+            <h2>Termos de Uso</h2>
+            <div class="modal-body">
+                <p class="left"><strong>Última atualização:</strong> Fevereiro de 2026</p>
+
+                <p>Ao acessar ou utilizar o EasyQR (“Serviço”), você declara que leu, entendeu e concorda integralmente
+                    com estes Termos de Uso. Se não concordar, não utilize o Serviço.</p>
+
+                <h3>1. Natureza do Serviço</h3>
+                <p>O EasyQR é uma ferramenta simples que permite gerar códigos QR dinâmicos apontando para arquivos
+                    enviados temporariamente pelo usuário e hospedados em serviços de terceiros (tmpfiles.org).</p>
+
+                <p><strong>O EasyQR NÃO armazena, NÃO hospeda permanentemente, NÃO analisa e NÃO distribui nenhum
+                        arquivo.</strong> Os arquivos são enviados diretamente para tmpfiles.org (ou serviço
+                    equivalente) e o link temporário gerado é o que fica no QR Code. Após o prazo do serviço de
+                    hospedagem temporária, o arquivo some automaticamente.</p>
+
+                <h3>2. Ausência de Vínculo</h3>
+                <p>O EasyQR não tem qualquer parceria, afiliação ou vínculo com tmpfiles.org, Google, Apple ou qualquer
+                    outra empresa citada no app ou no footer.</p>
+
+                <h3>3. Uso Permitido e Conteúdo Proibido</h3>
+                <p>Você se compromete a usar o Serviço apenas para finalidades lícitas e a enviar APENAS arquivos dos
+                    quais você possui todos os direitos ou autorização para compartilhar publicamente.</p>
+
+                <p><strong>É terminantemente proibido</strong> enviar:</p>
+                <ul>
+                    <li>Arquivos com dados pessoais sensíveis de terceiros (CPF, RG, senhas, chaves de API, tokens,
+                        etc.)</li>
+                    <li>Arquivos protegidos por direitos autorais sem permissão</li>
+                    <li>Conteúdo ilegal, malicioso, pornográfico ilegal, difamatório, ou que viole qualquer lei</li>
+                    <li>.env, .yaml com credenciais, planilhas com senhas, backups de banco de dados, etc.</li>
+                </ul>
+
+                <p>O EasyQR não filtra nem verifica o conteúdo dos arquivos antes do upload. Qualquer problema legal
+                    decorrente do que você enviou é de sua exclusiva responsabilidade.</p>
+
+                <h3>4. Responsabilidade Exclusiva do Usuário</h3>
+                <p>Você é o único responsável:</p>
+                <ul>
+                    <li>Pelo conteúdo que envia</li>
+                    <li>Pelos links/QR Codes que gera e compartilha</li>
+                    <li>Por qualquer dano, vazamento, exposição indevida ou consequência legal causada pelo arquivo
+                        enviado</li>
+                </ul>
+
+                <p><strong>O EasyQR e seu desenvolvedor NÃO se responsabilizam por vazamento de credenciais, exposição
+                        de dados sensíveis ou qualquer prejuízo causado por arquivos enviados pelos usuários.</strong>
+                </p>
+
+                <h3>5. Limitação de Responsabilidade</h3>
+                <p>O Serviço é oferecido “no estado em que se encontra” (as is), sem garantia de disponibilidade,
+                    funcionamento ininterrupto ou segurança absoluta.</p>
+
+                <p>Em nenhuma hipótese o desenvolvedor (Vinicius Oliveira – Vxncius) será responsável por danos diretos,
+                    indiretos, lucros cessantes, perda de dados, vazamento de informações ou qualquer outro prejuízo
+                    decorrente do uso (ou impossibilidade de uso) do EasyQR.</p>
+
+                <h3>6. Denúncias e Remoção</h3>
+                <p>Se você acredita que algum QR Code aponta para conteúdo ilegal ou violador de direitos, envie
+                    denúncia para:</p>
+                <p><strong>vxncius@hotmail.com</strong></p>
+
+                <p>Inclua: descrição do problema, URL do QR/final, seus dados e declaração de boa-fé. O EasyQR não
+                    guarda os arquivos, então a remoção depende exclusivamente do tmpfiles.org ou equivalente.</p>
+
+                <h3>7. Jurisdição</h3>
+                <p>Estes Termos são regidos pelas leis do Brasil. Foro eleito: São Paulo/SP.</p>
+
+                <h3>8. Alterações</h3>
+                <p>Podemos alterar estes Termos a qualquer momento. O uso continuado após a mudança implica aceitação
+                    dos novos termos.</p>
+
+                <p>© 2026 EasyQR. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <button data-modal-close><i class="fa-solid fa-x"></i></button>
+            <h2>Política de Privacidade</h2>
+            <div class="modal-body">
+                <p class="left"><strong>Última atualização:</strong> Fevereiro de 2026</p>
+
+                <p>O EasyQR trata dados pessoais de acordo com a LGPD (Lei nº 13.709/2018).</p>
+
+                <h3>1. Princípio de Minimização</h3>
+                <p>Coletamos o mínimo possível de dados — apenas o necessário para o funcionamento técnico e segurança.
+                </p>
+
+                <h3>2. Dados Coletados</h3>
+
+                <h4>2.1 Dados de Navegação</h4>
+                <p>Usamos Google Analytics 4 (ou similar) com IP anonimizado para entender uso geral (páginas visitadas,
+                    dispositivo, etc.).</p>
+
+                <h4>2.3 Arquivos Enviados</h4>
+                <p>Os arquivos que você envia NÃO são armazenados no EasyQR. Eles vão direto para tmpfiles.org (ou
+                    similar) e nós não guardamos cópia.</p>
+
+                <h4>2.4 Logs Técnicos</h4>
+                <p>Registramos IP, data/hora, user-agent etc. temporariamente para segurança, prevenção de abuso e
+                    cumprimento legal.</p>
+
+                <h3>3. Compartilhamento</h3>
+                <p>Não vendemos nem comercializamos dados. Podemos compartilhar com provedores de infraestrutura/análise
+                    que seguem suas próprias políticas (ex.: Google, tmpfiles.org).</p>
+
+                <h3>4. Retenção</h3>
+                <p>Logs e métricas são mantidos pelo tempo necessário para segurança e auditoria (geralmente poucos
+                    meses).</p>
+
+                <h3>5. Seus Direitos (LGPD)</h3>
+                <p>Você pode pedir acesso, correção ou exclusão dos seus dados pessoais enviando e-mail para:
+                    <strong>vxncius@hotmail.com</strong>
+                </p>
+
+                <h3>6. Segurança</h3>
+                <p>Usamos HTTPS e boas práticas básicas. Nenhum sistema é 100% inviolável — e nós não garantimos isso.
+                </p>
+
+                <h3>7. Alterações</h3>
+                <p>Podemos atualizar esta política. Continuar usando o EasyQR = aceitar as mudanças.</p>
+
+                <p>© 2026 EasyQR. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </div>
+
     <div class="bottom-sheet-backdrop" id="historySheetBackdrop" aria-hidden="true"></div>
-    <div id="history-bottom-sheet" class="bottom-sheet" aria-label="Histórico de itens">
+    <div id="history-bottom-sheet" class="bottom-sheet" aria-label="History items">
         <div class="bottom-sheet-handle" id="historySheetHandle" role="button" tabindex="0" aria-expanded="false">
             <span class="bottom-sheet-drag-bar"></span>
         </div>
