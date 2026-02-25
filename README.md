@@ -2,7 +2,7 @@
 
 EaseQR generates QR codes for text/links and uploads files to `tmpfiles.org`.
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/df70d065-50d2-431c-9646-834d7a4e9e94" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/fbdf5601-d802-465b-a15c-2b6993614944" />
 
 ## File flow
 
